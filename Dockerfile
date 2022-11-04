@@ -1,9 +1,6 @@
-FROM centos:latest
-
-LABEL maintainer "777aws"
-LABEL title="webApp"
-LABEL version="1.0"
-
-RUN mkdir /home/volume
-RUN echo test >> /home/volume/testfile
-VOLUME /home/volume
+FROM ubuntu:18.04
+RUN apt-get update
+RUN apt-get install apache2 -y
+COPY index.html /ver/www/html
+EXPOSE 80
+CMD apachectl -DFOREGROUND
