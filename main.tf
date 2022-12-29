@@ -764,7 +764,7 @@ resource "aws_security_group_rule" "DTC_PublicSG_SSHegress" {
 # 이것이 없으면 Terraform은 기본 VPC에 RDS 인스턴스를 생성합니다.
 resource "aws_db_subnet_group" "test" {
   name       = "test"
-  subnet_ids = [aws_subnet.VPC_DTC_public_1a.id, aws_subnet.VPC_DTC_public_1c.id ]
+  subnet_ids = [aws_subnet.VPC_DTC_private_1a.id, aws_subnet.VPC_DTC_private_1c.id ]
 
   tags = {
     Name = "test"
@@ -952,3 +952,6 @@ locals {
   tcp_protocol = "tcp"
   all_ips      = ["0.0.0.0/0"]
 }
+####################
+###################
+############
