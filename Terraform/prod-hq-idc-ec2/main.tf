@@ -39,7 +39,7 @@ locals {
   # route_table = data.terraform_remote_state.hidc.outputs.route_table
   common_tags = {
     project = "hidc-ec2"
-    owner   = "icurfer"
+    owner   = "bkkim"
 
   }
   tcp_port = {

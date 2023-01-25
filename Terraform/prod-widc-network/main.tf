@@ -12,7 +12,7 @@ locals {
   # public_subnet = data.terraform_remote_state.widc.outputs.subnet
   common_tags = {
     project = "22shop-widc-network"
-    owner   = "icurfer"
+    owner   = "bkkim"
 
   }
   tcp_port = {
@@ -32,16 +32,6 @@ locals {
   icmp_protocol = "icmp"
   all_ips       = ["0.0.0.0/0"]
 
-  node_group_scaling_config = {
-    desired_size = 2
-    max_size     = 4
-    min_size     = 1
-  }
-
-  eks_ingress_type = {
-    public  = "kubernetes.io/role/elb"
-    private = "kubernetes.io/role/internal-elb=1"
-  }
 }
 
 // GET 계정정보
@@ -66,8 +56,8 @@ module "vpc_widc" {
   source = "../modules/vpc"
   tag_name   = "${local.common_tags.project}-vpc"
   cidr_block = "10.2.0.0/16"
-  public_ip_on       = true
-  enable_dns_support = true
+  public_ip_on       = false
+  enable_dns_support = false
 
 }
 
@@ -90,8 +80,6 @@ module "subnet_public" {
   subnet-az-list = var.subnet-az-public
   public_ip_on   = true
   # vpc_name       = "${local.common_tags.project}-public"
-  #alb-ingress 생성을 위해 지정
-  # k8s_ingress = true
   vpc_name = "${local.common_tags.project}-vpc"
 }
 
@@ -131,30 +119,3 @@ module "dhcp_options_association" {
 
 }
 
-
-
-
-
-
-
-
-
-
-# // private subnet
-# module "subnet_private" {
-#   source = "../modules/vpc-subnet"
-
-#   vpc_id         = module.vpc_hq.vpc_hq_id
-#   subnet-az-list = var.subnet-az-private
-#   public_ip_on   = false
-#   k8s_ingress        = false
-#   #alb-ingress 생성을 위해 지정
-#   vpc_name = local.eks_ingress_type.public
-# }
-
-# module "route_private" {
-#   source   = "../modules/route-table"
-#   tag_name = "${local.common_tags.project}-private_route_table"
-#   vpc_id   = module.vpc_hq.vpc_hq_id
-
-# }

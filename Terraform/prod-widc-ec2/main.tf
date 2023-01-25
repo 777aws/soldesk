@@ -50,7 +50,7 @@ locals {
   route_table = data.terraform_remote_state.widc.outputs.route_table
   common_tags = {
     project = "widc-ec2"
-    owner   = "icurfer"
+    owner   = "bkkim"
 
   }
   tcp_port = {
@@ -73,11 +73,6 @@ locals {
   icmp_protocol = "icmp"
   all_ips       = ["0.0.0.0/0"]
 
-  node_group_scaling_config = {
-    desired_size = 2
-    max_size     = 4
-    min_size     = 1
-  }
 }
 
 
@@ -196,7 +191,7 @@ resource "aws_instance" "idc_cgw" {
 }
 
 resource "aws_instance" "idc-db" {
-  ami                    = "ami-0c76973fbe0ee100c"
+  ami                    = "ami-00eb7adeef909470e"
   instance_type          = "t2.micro"
   key_name               = "default-shop"
   vpc_security_group_ids = [module.instance_sg.sg_id]
@@ -208,7 +203,7 @@ resource "aws_instance" "idc-db" {
 }
 
 resource "aws_instance" "idc-dns" {
-  ami                    = "ami-0c76973fbe0ee100c"
+  ami                    = "ami-04aa5b6de77ecd190"
   instance_type          = "t2.micro"
   key_name               = "default-shop"
   vpc_security_group_ids = [module.instance_sg.sg_id]

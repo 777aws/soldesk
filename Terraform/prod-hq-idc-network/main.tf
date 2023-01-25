@@ -11,7 +11,7 @@ locals {
   region = "ap-northeast-2"
   common_tags = {
     project = "22shop-hq-idc"
-    owner   = "icurfer"
+    owner   = "bkkim"
   }
  
   tcp_port = {
@@ -48,7 +48,7 @@ data "aws_caller_identity" "this" {}
 #   }
 # }
 
-# module "vpc_hq" {
+
 module "vpc_idc" {
   source = "../modules/vpc"
   #   source = "github.com/Seong-dong/team_prj/tree/main/modules/vpc"
